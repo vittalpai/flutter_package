@@ -29,7 +29,7 @@ jobs:
         docker ps
         echo "Container ID: ${CONTIANER_ID}"
 
-        sleep 60
+        sleep 120
 
         echo "Getting the logs"
         docker logs ${CONTIANER_ID}
