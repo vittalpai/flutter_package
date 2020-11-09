@@ -8,6 +8,10 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v1
+    - uses: subosito/flutter-action@v1
+      with:
+        flutter-version: '1.22.4'
+        channel: 'stable'
     - name : XCode
       run: |
         xcode-select -v
@@ -39,10 +43,15 @@ jobs:
           "applicationKey":{
               "version":"1.0.0",
               "clientPlatform":"ios",
-              "bundleIdentifier":"com.example.Demo"
+              "bundleId":"com.example.Demo"
           },
           "displayName":"RunnerDemo"
         }
         EOF
         curl -X POST "http://192.168.99.100:9080/mfpadmin/management-apis/2.0/runtimes/mfp/applications?async=false&locale=en_US" -H "Content-Type: application/json" --user "admin:admin" -H "cache-control: no-cache" -d @./registerconfig.json -o output.json
         cat ./output.json
+
+    - name: TestApp
+      working-directory: ./Demo
+      run: |
+        flutter drive --target=test_driver/app.dart
