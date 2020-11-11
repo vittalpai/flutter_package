@@ -27,8 +27,8 @@ class _MyAppState extends State<MyApp> {
     String platformVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      var connect_test = new ConnectTest();
-      connect_test.obtainAccessToken().then((value) => setState(() {
+      var connectTest = new ConnectTest();
+      connectTest.obtainAccessToken().then((value) => setState(() {
         _platformVersion = value["value"];
       }));
     } on PlatformException {

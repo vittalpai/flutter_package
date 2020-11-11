@@ -1,8 +1,8 @@
 on: [push,pull_request]
-name: Build app
+name: Test and Build
 jobs:
   build:
-    name: Build for android and ios
+    name: Test and Build
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v1
@@ -13,13 +13,23 @@ jobs:
       with:
         flutter-version: '1.22.4'
         channel: 'stable'
+    - name: Analyze and run tests
+      working-directory: ./
+      run: |
+        flutter analyze
+        flutter test
     - name: Build app
       working-directory: ./example
       run: |
         flutter pub get
         flutter build apk
         flutter build ios --no-codesign
+    - name: Lint podspec
+      working-directory: ./ios
+      run: |
+        pod spec lint
     - name: Check if publishable
       working-directory: ./
       run: |
-        flutter packages publish --dry-run
+        flutter pub publish --dry-run
+    
