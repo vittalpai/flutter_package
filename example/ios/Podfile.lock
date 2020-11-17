@@ -1,0 +1,29 @@
+PODS:
+  - connect_test (0.0.1):
+    - Flutter
+    - IBMMobileFirstPlatformFoundation (= 8.0.2020082709)
+  - Flutter (1.0.0)
+  - IBMMobileFirstPlatformFoundation (8.0.2020082709)
+
+DEPENDENCIES:
+  - connect_test (from `.symlinks/plugins/connect_test/ios`)
+  - Flutter (from `Flutter`)
+
+SPEC REPOS:
+  trunk:
+    - IBMMobileFirstPlatformFoundation
+
+EXTERNAL SOURCES:
+  connect_test:
+    :path: ".symlinks/plugins/connect_test/ios"
+  Flutter:
+    :path: Flutter
+
+SPEC CHECKSUMS:
+  connect_test: 5c5f31fb38985bfff3dcf0e7258936ae35361264
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  IBMMobileFirstPlatformFoundation: 0babcb9c6896ce7a46b31f25b166689428b70cc4
+
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+
+COCOAPODS: 1.10.0.rc.1
