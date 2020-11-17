@@ -4,14 +4,10 @@ task:
   upgrade_script:
     - flutter channel stable
     - flutter upgrade
-    - flutter channel master
-    - flutter upgrade
-    - git fetch origin master
   activate_script: pub global activate flutter_plugin_tools
   matrix:
     - name: build_plugin_apk
       script:
-        - flutter channel stable
-        - pwd
+        - yes | sdkmanager --licenses
         - cd example
         - flutter build apk
