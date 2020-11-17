@@ -8,6 +8,5 @@ task:
   matrix:
     - name: build_plugin_apk
       script:
-        - yes | sdkmanager --licenses
         - cd example
         - flutter build apk
