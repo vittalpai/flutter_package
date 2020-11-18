@@ -16,7 +16,10 @@ jobs:
     - name: Build app
       working-directory: ./example
       run: |
-        pwd
         flutter pub get
         flutter build apk
         flutter build ios --no-codesign
+    - name: Check if publishable
+      working-directory: ./
+      run: |
+        flutter packages publish --dry-run
