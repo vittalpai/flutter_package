@@ -15,8 +15,8 @@ jobs:
         channel: 'stable'
     - run: dart --version
     - run: flutter --version
-    - run: pwd
     - run: cd example
+    - run: pwd
     - run: flutter pub get
     - run: flutter build apk
     - run: flutter build ios --no-codesign
