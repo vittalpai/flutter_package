@@ -13,14 +13,11 @@ task:
 
 task:
   osx_instance:
-    image: catalina-xcode-11.3.1-flutter
+    image: catalina-xcode-11.6-flutter
   upgrade_script:
     - flutter channel stable
     - flutter upgrade
   activate_script: pub global activate flutter_plugin_tools
-  create_simulator_script:
-    - xcrun simctl list
-    - xcrun simctl create Flutter-iPhone com.apple.CoreSimulator.SimDeviceType.iPhone-X com.apple.CoreSimulator.SimRuntime.iOS-13-3 | xargs xcrun simctl boot
   matrix:
     - name: build_app_ipa
       script:
