@@ -13,14 +13,19 @@ jobs:
       with:
         flutter-version: '1.22.4'
         channel: 'stable'
-    - name: Install dartdoc
+    - name: Install and generate doc using dartdoc
       working-directory: ./
       run: |
         flutter pub global activate dartdoc
         flutter pub global run dartdoc:dartdoc
-        git status
-        git config user.name ${{ secrets.GH_USER }}
-        git config user.email "${{ secrets.GH_MAIL }}"
-        git add doc/
-        git commit -m "Updating docs"
-        git push "https://${{ secrets.GH_TOKEN }}@github.com/rajarahul12/flutter_package.git"
+        if [[ -z $(git status -s) ]]
+        then
+          echo "No changes"
+        else
+          echo "Changes made, please commit changes before running this"
+          git config user.name ${{ secrets.GH_USER }}
+          git config user.email "${{ secrets.GH_MAIL }}"
+          git add doc/
+          git commit -m "Updating docs"
+          git push "https://${{ secrets.GH_TOKEN }}@github.com/rajarahul12/flutter_package.git"
+        fi
