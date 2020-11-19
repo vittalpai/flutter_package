@@ -17,4 +17,4 @@ jobs:
       working-directory: ./
       run: |
         pub global activate dartdoc
-        dartdoc .
+        flutter pub global run dartdoc:dartdoc
