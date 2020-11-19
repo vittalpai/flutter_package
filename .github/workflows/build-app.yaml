@@ -32,4 +32,8 @@ jobs:
       working-directory: ./
       run: |
         flutter pub publish --dry-run
-    
+    - name: Check any issues with doc generation
+      working-directory: ./
+      run: |
+        flutter pub global activate dartdoc
+        flutter pub global run dartdoc:dartdoc
