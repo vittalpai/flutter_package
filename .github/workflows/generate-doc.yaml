@@ -18,3 +18,7 @@ jobs:
       run: |
         flutter pub global activate dartdoc
         flutter pub global run dartdoc:dartdoc
+        git status
+        git config user.name ${{ secrets.GH_USER }}
+        git config user.email "${{ secrets.GH_MAIL }}"
+        git remote add origin "https://${{ secrets.GH_TOKEN}}@github.com/:user/:repo.git"
