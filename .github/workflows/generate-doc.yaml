@@ -16,5 +16,5 @@ jobs:
     - name: Install dartdoc
       working-directory: ./
       run: |
-        pub global activate dartdoc
+        flutter pub global activate dartdoc
         flutter pub global run dartdoc:dartdoc
