@@ -16,7 +16,7 @@ jobs:
     - name: Analyze and run tests
       working-directory: ./
       run: |
-        flutter analyze
+        # flutter analyze
         flutter test
     - name: Build app
       working-directory: ./example
