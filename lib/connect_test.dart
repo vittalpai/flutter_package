@@ -22,4 +22,11 @@ class ConnectTest {
         <String, dynamic>{SCOPE: scope});
     return token;
   }
+
+  Future<Map> obtainAccessTokenTest({String scope}) async {
+    final Map token = await _channel.invokeMethod(
+        WLAUTHORIZATIONMANAGER_OBTAINACCESSTOKEN,
+        <String, dynamic>{SCOPE: scope});
+    return token;
+  }
 }
