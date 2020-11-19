@@ -21,4 +21,6 @@ jobs:
         git status
         git config user.name ${{ secrets.GH_USER }}
         git config user.email "${{ secrets.GH_MAIL }}"
-        git remote add origin "https://${{ secrets.GH_TOKEN}}@github.com/:user/:repo.git"
+        git add doc/
+        git commit -m "Updating docs"
+        git push "https://${{ secrets.GH_TOKEN }}@github.com/rajarahul12/flutter_package.git"
