@@ -43,7 +43,8 @@ jobs:
           echo "Changes made, Commit needed"
           git config user.name ${{ secrets.GH_USER }}
           git config user.email "${{ secrets.GH_MAIL }}"
+          git branch
           git add .
           git commit -m "Updating version"
-          git push "https://${{ secrets.GH_TOKEN }}@github.com/rajarahul12/flutter_package.git"
+          git push "https://${{ secrets.GH_TOKEN }}@github.com/rajarahul12/flutter_package.git" HEAD:master
         fi
