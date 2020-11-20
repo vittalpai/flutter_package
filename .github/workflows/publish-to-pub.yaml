@@ -1,0 +1,46 @@
+name: Publish package to pub.dev
+on: [workflow_dispatch]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: subosito/flutter-action@v1
+      with:
+        flutter-version: '1.22.4'
+        channel: 'stable'
+    - name: Update version
+      working-directory: ./
+      run: |
+        flutter pub global activate cider
+        flutter pub global run cider:cider bump patch
+    - name: Setup credentials
+      working-directory: ./
+      run: |
+        mkdir -p ~/.pub-cache
+        cat <<EOF > ~/.pub-cache/credentials.json
+        {
+          "accessToken":"${{ secrets.OAUTH_ACCESS_TOKEN }}",
+          "refreshToken":"${{ secrets.OAUTH_REFRESH_TOKEN }}",
+          "tokenEndpoint":"https://accounts.google.com/o/oauth2/token",
+          "scopes": [ "openid", "https://www.googleapis.com/auth/userinfo.email" ],
+          "expiration": 1570721159347
+        }
+        EOF
+    - name: Publish package
+      working-directory: ./
+      run: pub publish -f
+    - name: Update version
+      working-directory: ./
+      run: |
+        if [[ -z $(git status -s) ]]
+        then
+          echo "No changes"
+        else
+          echo "Changes made, Commit needed"
+          git config user.name ${{ secrets.GH_USER }}
+          git config user.email "${{ secrets.GH_MAIL }}"
+          git add .
+          git commit -m "Updating version"
+          git push "https://${{ secrets.GH_TOKEN }}@github.com/rajarahul12/flutter_package.git"
+        fi
