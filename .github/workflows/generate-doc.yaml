@@ -22,7 +22,7 @@ jobs:
         then
           echo "No changes"
         else
-          echo "Changes made, please commit changes before running this"
+          echo "Changes made, Commit needed"
           git config user.name ${{ secrets.GH_USER }}
           git config user.email "${{ secrets.GH_MAIL }}"
           git add doc/
