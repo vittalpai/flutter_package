@@ -12,6 +12,10 @@ jobs:
       with:
         flutter-version: '1.22.4'
         channel: 'stable'
+    - name: Set current date as env variable
+      run: echo "::set-env name=NOW::$(date +'%Y%m%dT%H')"
+    - name: Echo current date
+      run: echo $NOW
     - name: Update version
       working-directory: ./
       run: |
