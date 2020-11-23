@@ -12,16 +12,16 @@ jobs:
       with:
         flutter-version: '1.22.4'
         channel: 'stable'
-    - name: Set current date as env variable
+    - name: Set version as env variable
       run: |
-        echo "NOW=$(date +'%Y%m%dT%H')" >> $GITHUB_ENV
-    - name: Echo current date
+        echo "VERSION=8.0.$(date +'%Y%m%d%H')" >> $GITHUB_ENV
+    - name: Echo version number
       run: echo $NOW
     - name: Update version
       working-directory: ./
       run: |
         flutter pub global activate cider
-        flutter pub global run cider:cider bump patch
+        flutter pub global run cider:cider version $VERSION
     - name: Setup credentials
       working-directory: ./
       run: |
