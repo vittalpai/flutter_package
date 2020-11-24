@@ -18,6 +18,8 @@ jobs:
         apt-cache policy docker-ce
         sudo apt-get install -y docker-ce
         sudo systemctl status docker
+
+        docker pull ibmcom/ibm-mobilefoundation-ce:latest
     # - uses: docker://ibmcom/ibm-mobilefoundation-ce:latest
     # - run:
     #     |
