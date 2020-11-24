@@ -20,6 +20,9 @@ jobs:
         sudo systemctl status docker
 
         docker pull ibmcom/ibm-mobilefoundation-ce:latest
+
+        docker run -d -p 9080:9080 -p 9443:9443 -e MFPF_ANALYTICS_PROTOCOL=http -e ANALYTICS_SVC_NAME=localhost -e ANALYTICS_PORT=9080 -e MFPF_SERVER_PROTOCOL=http -e ADMIN_HOST=localhost -e MFPF_SERVER_PORT=9080 -e RUNTIME_SVC_NAME=localhost -e MFPF_ANALYTICS_RECVR_HOST=localhost ibmcom/ibm-mobilefoundation-ce
+        docker ps
     # - uses: docker://ibmcom/ibm-mobilefoundation-ce:latest
     # - run:
     #     |
