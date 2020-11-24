@@ -5,13 +5,14 @@ on:
     - master
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
     - name: Test install docker
       run: |
         sudo apt-get update
         sudo apt-get remove docker docker-engine docker.io
+        sudo apt install containerd
         sudo apt install docker.io
         sudo systemctl start docker
         sudo systemctl enable docker
