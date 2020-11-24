@@ -31,7 +31,18 @@ jobs:
         docker logs ${CONTIANER_ID}
 
         curl http://127.0.0.1:9080/mfp/api/az/v1/token
-    # - uses: docker://ibmcom/ibm-mobilefoundation-ce:latest
-    # - run:
-    #     |
-    #     echo "test"
+
+    - name: Register app
+      run: |
+        cat <<EOF > ./registerconfig.json
+        {
+          "applicationKey":{
+              "version":"1.0.0",
+              "clientPlatform":"android",
+              "packageName":"com.ibm.test"
+          },
+          "displayName":"example"
+        }
+        EOF
+        curl -X POST "http://127.0.0.1:9080/mfpadmin/management-apis/2.0/runtimes/mfp/applications?async=false&locale=en_US" -H "Content-Type: application/json" --user "admin:admin" -H "cache-control: no-cache" -d @./registerconfig.json -o output.json
+        cat ./output.json
