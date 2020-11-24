@@ -12,7 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   uuid: 2.2.2
-  connect_test: ^0.0.1
+  connect_test: 8.0.2020112405
 
   # connect_test:
     # When depending on this package from a real application you should use:

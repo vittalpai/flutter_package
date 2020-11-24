@@ -1,0 +1,14 @@
+name: Docker Test
+on: 
+  workflow_dispatch:
+    branches:
+    - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: docker://ibmcom/ibm-mobilefoundation-ce:latest
+    - run:
+        |
+        echo "test"

@@ -1,5 +1,5 @@
 PODS:
-  - connect_test (0.0.1):
+  - connect_test (0.0.3):
     - Flutter
     - IBMMobileFirstPlatformFoundation (= 8.0.2020082709)
   - Flutter (1.0.0)
@@ -20,7 +20,7 @@ EXTERNAL SOURCES:
     :path: Flutter
 
 SPEC CHECKSUMS:
-  connect_test: 5c5f31fb38985bfff3dcf0e7258936ae35361264
+  connect_test: 42e5df5fb8f56c115f869f01a6df8d93a05c8800
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   IBMMobileFirstPlatformFoundation: 0babcb9c6896ce7a46b31f25b166689428b70cc4
 
