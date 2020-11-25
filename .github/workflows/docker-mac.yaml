@@ -12,7 +12,7 @@ jobs:
       run: |
         xcode-select -v
         xcrun simctl list
-        open -a Simulator
+        open -a /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
     - name: Install Docker
       run: |
         brew cask install docker-toolbox
