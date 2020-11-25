@@ -8,6 +8,10 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v1
+    - name : XCode
+      run: |
+        xcode-select -v
+        open -a Simulator
     - name: Install Docker
       run: |
         brew cask install docker-toolbox
