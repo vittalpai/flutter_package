@@ -33,10 +33,10 @@ jobs:
         {
           "applicationKey":{
               "version":"1.0.0",
-              "clientPlatform":"android",
-              "packageName":"com.ibm.test"
+              "clientPlatform":"ios",
+              "bundleIdentifier":"com.example.Demo"
           },
-          "displayName":"example"
+          "displayName":"RunnerDemo"
         }
         EOF
         curl -X POST "http://192.168.99.100:9080/mfpadmin/management-apis/2.0/runtimes/mfp/applications?async=false&locale=en_US" -H "Content-Type: application/json" --user "admin:admin" -H "cache-control: no-cache" -d @./registerconfig.json -o output.json
