@@ -10,5 +10,8 @@ jobs:
     - uses: actions/checkout@v1
     - name: Install Docker
       run: |
-        brew cask install docker
+        brew cask install docker-toolbox
+        docker-machine create --driver "virtualbox" AppTest
+        docker-machine start AppTest
+        eval "$(docker-machine env myBoxName)"
         docker pull ibmcom/ibm-mobilefoundation-ce:latest
