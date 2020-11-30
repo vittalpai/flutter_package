@@ -10,6 +10,6 @@ jobs:
     - uses: actions/checkout@v1
     - name: Install Docker
       run: |
-        brew install caskroom/cask/brew-cask
+        brew install homebrew/cask/brew-cask
         brew cask install docker
         docker pull ibmcom/ibm-mobilefoundation-ce:latest
