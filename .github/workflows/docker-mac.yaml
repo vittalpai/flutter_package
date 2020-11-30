@@ -54,4 +54,6 @@ jobs:
     - name: TestApp
       working-directory: ./Demo
       run: |
+        flutter run
+        
         flutter drive --target=test_driver/app.dart
