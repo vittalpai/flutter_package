@@ -1,0 +1,15 @@
+name: Docker Test
+on: 
+  workflow_dispatch:
+    branches:
+    - master
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install Docker
+      run: |
+        brew install caskroom/cask/brew-cask
+        brew cask install docker
+        open /Applications/Docker.app
