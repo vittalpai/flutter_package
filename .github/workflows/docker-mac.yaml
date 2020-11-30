@@ -11,7 +11,5 @@ jobs:
     - name: Install Docker
       run: |
         brew cask install docker-toolbox
-        docker-machine create --driver "virtualbox" AppTest
-        docker-machine start AppTest
-        eval "$(docker-machine env myBoxName)"
+        open /Applications/Docker.app
         docker pull ibmcom/ibm-mobilefoundation-ce:latest
