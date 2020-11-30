@@ -25,7 +25,7 @@ jobs:
         echo "Getting the logs"
         docker logs ${CONTIANER_ID}
 
-        curl http://localhost:9080/mfp/api/az/v1/token
+        curl http://192.168.99.100:9080/mfp/api/az/v1/token
 
     - name: Register app
       run: |
@@ -39,5 +39,5 @@ jobs:
           "displayName":"example"
         }
         EOF
-        curl -X POST "http://localhost:9080/mfpadmin/management-apis/2.0/runtimes/mfp/applications?async=false&locale=en_US" -H "Content-Type: application/json" --user "admin:admin" -H "cache-control: no-cache" -d @./registerconfig.json -o output.json
+        curl -X POST "http://192.168.99.100:9080/mfpadmin/management-apis/2.0/runtimes/mfp/applications?async=false&locale=en_US" -H "Content-Type: application/json" --user "admin:admin" -H "cache-control: no-cache" -d @./registerconfig.json -o output.json
         cat ./output.json
