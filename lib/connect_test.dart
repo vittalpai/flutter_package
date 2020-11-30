@@ -25,6 +25,7 @@ class ConnectTest {
     }
     catch(e){
       print(e);
+      throw e;
     }
   }
 

@@ -25,6 +25,20 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
+  @override
+  void initState() {
+    super.initState();
+    initPlatformState();
+  }
+
+  Future<void> initPlatformState() async {
+    var connectTest = new ConnectTest();
+      connectTest.obtainAccessToken().then((value) => setState(() {
+        print('Value ${value["value"]}');
+      })).catchError((e) => print("Error ${e}"));
+  }
+
+
   void _incrementCounter() {
 
     var connectTest = new ConnectTest();
