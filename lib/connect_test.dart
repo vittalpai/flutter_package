@@ -21,6 +21,7 @@ class ConnectTest {
       final Map token = await _channel.invokeMethod(
         WLAUTHORIZATIONMANAGER_OBTAINACCESSTOKEN,
         <String, dynamic>{SCOPE: scope});
+      print("obtainAccess TOken -----> ${token}");
       return token;
     }
     catch(e){

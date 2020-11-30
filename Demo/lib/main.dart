@@ -43,6 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     var connectTest = new ConnectTest();
       connectTest.obtainAccessToken().then((value) => setState(() {
+        print(value);
         print('Value ${value["value"]}');
         setState(() {
           _counter++;
