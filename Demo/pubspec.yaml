@@ -23,7 +23,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  connect_test: ^8.0.2020112405
+  connect_test:
+    path: ../
 
 
   # The following adds the Cupertino Icons font to your application.
