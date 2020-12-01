@@ -35,7 +35,7 @@ jobs:
 
         echo $PATH
 
-        cat ~/.zprofile
+        export PATH=$PATH:/usr/local/bin
         
         docker pull ibmcom/ibm-mobilefoundation-ce:latest
 
