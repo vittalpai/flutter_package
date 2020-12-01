@@ -19,32 +19,21 @@ jobs:
         open -a /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
     - name: Install Docker
       run: |
-        # brew cask install docker-toolbox
-        # docker-machine create --driver "virtualbox" TestApp
-        # eval "$(docker-machine env TestApp)"
-        # docker-machine ls
-        brew cask install docker
-        open /Applications/Docker.app
+        brew cask install docker-toolbox
+        docker-machine create --driver "virtualbox" TestApp
+        eval "$(docker-machine env TestApp)"
+        docker-machine ls
 
-        ls /Applications/Docker.app/Contents/Resources/bin
+        docker pull ibmcom/ibm-mobilefoundation-ce:latest
 
-        sleep 20
-
-        brew install bash-completion
-        brew install docker-completion
-        brew install docker-compose-completion
-        brew install docker-machine-completion
-        
-        /Applications/Docker.app/Contents/Resources/bin/docker pull ibmcom/ibm-mobilefoundation-ce:latest
-
-        CONTIANER_ID=$(/Applications/Docker.app/Contents/Resources/bin/docker run -d -p 9080:9080 -p 9443:9443 -e MFPF_ANALYTICS_PROTOCOL=http -e ANALYTICS_SVC_NAME=localhost -e ANALYTICS_PORT=9080 -e MFPF_SERVER_PROTOCOL=http -e ADMIN_HOST=localhost -e MFPF_SERVER_PORT=9080 -e RUNTIME_SVC_NAME=localhost -e MFPF_ANALYTICS_RECVR_HOST=localhost ibmcom/ibm-mobilefoundation-ce)
-        /Applications/Docker.app/Contents/Resources/bin/docker ps
+        CONTIANER_ID=$(docker run -d -p 9080:9080 -p 9443:9443 -e MFPF_ANALYTICS_PROTOCOL=http -e ANALYTICS_SVC_NAME=localhost -e ANALYTICS_PORT=9080 -e MFPF_SERVER_PROTOCOL=http -e ADMIN_HOST=localhost -e MFPF_SERVER_PORT=9080 -e RUNTIME_SVC_NAME=localhost -e MFPF_ANALYTICS_RECVR_HOST=localhost ibmcom/ibm-mobilefoundation-ce)
+        docker ps
         echo "Container ID: ${CONTIANER_ID}"
 
         sleep 120
 
         echo "Getting the logs"
-        /Applications/Docker.app/Contents/Resources/bin/docker logs ${CONTIANER_ID}
+        docker logs ${CONTIANER_ID}
 
         curl http://192.168.99.100:9080/mfp/api/az/v1/token
 
@@ -64,4 +53,4 @@ jobs:
 
         flutter drive --target=test_driver/app.dart
 
-        /Applications/Docker.app/Contents/Resources/bin/docker logs ${CONTIANER_ID}
+        docker logs ${CONTIANER_ID}
