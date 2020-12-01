@@ -26,6 +26,8 @@ jobs:
         brew cask install docker
         open /Applications/Docker.app
 
+        ls /Applications/Docker.app/Contents/Resources/bin
+
         sleep 20
 
         brew install bash-completion
@@ -36,8 +38,6 @@ jobs:
         echo $PATH
 
         export PATH=$PATH:/usr/local/bin
-
-        ls /Applications/Docker.app/Contents/Resources/bin
         
         docker pull ibmcom/ibm-mobilefoundation-ce:latest
 
