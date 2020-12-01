@@ -32,6 +32,10 @@ jobs:
         brew install docker-completion
         brew install docker-compose-completion
         brew install docker-machine-completion
+
+        echo $PATH
+
+        cat ~/.zprofile
         
         docker pull ibmcom/ibm-mobilefoundation-ce:latest
 
