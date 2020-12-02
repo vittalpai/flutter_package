@@ -18,6 +18,7 @@ jobs:
         xcrun simctl list
         open -a /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
     - name: Install Docker
+      working-directory: ./Demo
       run: |
         brew cask install docker-toolbox
         docker-machine create --driver "virtualbox" TestApp
@@ -52,13 +53,15 @@ jobs:
         curl -X POST "http://192.168.99.100:9080/mfpadmin/management-apis/2.0/runtimes/mfp/applications?async=false&locale=en_US" -H "Content-Type: application/json" --user "admin:admin" -H "cache-control: no-cache" -d @./registerconfig.json -o output.json
         cat ./output.json
 
-    - name: Testflutter
-      working-directory: ./Demo
-      run: |
-        echo "Container ID:  ${CONTIANER_ID}"
         if [[ `flutter drive --target=test_driver/app.dart` ]]; then
           echo "Test passed"
         else
           echo "Test not passed"
         fi
         docker logs ${CONTIANER_ID}
+
+    - name: Testflutter
+      working-directory: ./Demo
+      run: |
+        echo "Container ID:  ${CONTIANER_ID}"
+        
