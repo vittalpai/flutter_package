@@ -55,7 +55,7 @@ jobs:
     - name: Testflutter
       working-directory: ./Demo
       run: |
-        if [[ flutter drive --target=test_driver/app.dart ]]; then
+        if [[ `flutter drive --target=test_driver/app.dart` ]]; then
           echo "Test passed"
         else
           echo "Test not passed"
