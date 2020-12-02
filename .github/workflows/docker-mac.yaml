@@ -28,7 +28,7 @@ jobs:
 
         CONTIANER_ID=$(docker run -d -p 9080:9080 -p 9443:9443 -e MFPF_ANALYTICS_PROTOCOL=http -e ANALYTICS_SVC_NAME=localhost -e ANALYTICS_PORT=9080 -e MFPF_SERVER_PROTOCOL=http -e ADMIN_HOST=localhost -e MFPF_SERVER_PORT=9080 -e RUNTIME_SVC_NAME=localhost -e MFPF_ANALYTICS_RECVR_HOST=localhost ibmcom/ibm-mobilefoundation-ce)
         docker ps
-        echo "CONTIANER_ID=$(CONTIANER_ID)" >> $GITHUB_ENV
+        echo "CONTIANER_ID=${CONTIANER_ID}" >> $GITHUB_ENV
         echo "Container ID: ${CONTIANER_ID}"
 
         sleep 120
@@ -55,6 +55,7 @@ jobs:
     - name: Testflutter
       working-directory: ./Demo
       run: |
+        echo "Container ID:  ${CONTIANER_ID}"
         if [[ `flutter drive --target=test_driver/app.dart` ]]; then
           echo "Test passed"
         else
