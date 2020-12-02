@@ -59,9 +59,3 @@ jobs:
           echo "Test not passed"
         fi
         docker logs ${CONTIANER_ID}
-
-    - name: Testflutter
-      working-directory: ./Demo
-      run: |
-        echo "Container ID:  ${CONTIANER_ID}"
-        
