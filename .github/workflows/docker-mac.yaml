@@ -56,6 +56,5 @@ jobs:
       working-directory: ./Demo
       run: |
 
-        flutter drive --target=test_driver/app.dart
-
+        output=$(flutter drive --target=test_driver/app.dart)
         docker logs ${CONTIANER_ID}
