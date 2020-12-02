@@ -28,6 +28,7 @@ jobs:
 
         CONTIANER_ID=$(docker run -d -p 9080:9080 -p 9443:9443 -e MFPF_ANALYTICS_PROTOCOL=http -e ANALYTICS_SVC_NAME=localhost -e ANALYTICS_PORT=9080 -e MFPF_SERVER_PROTOCOL=http -e ADMIN_HOST=localhost -e MFPF_SERVER_PORT=9080 -e RUNTIME_SVC_NAME=localhost -e MFPF_ANALYTICS_RECVR_HOST=localhost ibmcom/ibm-mobilefoundation-ce)
         docker ps
+        echo "CONTIANER_ID=$(CONTIANER_ID)" >> $GITHUB_ENV
         echo "Container ID: ${CONTIANER_ID}"
 
         sleep 120
@@ -51,6 +52,10 @@ jobs:
         curl -X POST "http://192.168.99.100:9080/mfpadmin/management-apis/2.0/runtimes/mfp/applications?async=false&locale=en_US" -H "Content-Type: application/json" --user "admin:admin" -H "cache-control: no-cache" -d @./registerconfig.json -o output.json
         cat ./output.json
 
-        flutter drive --target=Demo/test_driver/app.dart
+    - name: Testflutter
+      working-directory: ./Demo
+      run: |
+
+        flutter drive --target=test_driver/app.dart
 
         docker logs ${CONTIANER_ID}
