@@ -28,10 +28,7 @@ jobs:
       run: |
         xcode-select -v
         # open -a /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
-    - name: Run Tests
-      timeout-minutes: 30
-      working-directory: ./Demo
-      uses: reactivecircus/android-emulator-runner@v2.6.0
+    - uses: reactivecircus/android-emulator-runner@v2.6.0
       with:
         api-level: 28
         profile: ${{ matrix.device }}
@@ -75,11 +72,11 @@ jobs:
 
           sleep 20;
 
-          flutter drive --target=test_driver/app.dart
+          # flutter drive --target=test_driver/app.dart
 
-          # if [[ `flutter drive --target=test_driver/app.dart` ]]; then
-          #   echo "Test passed"
-          # else
-          #   echo "Test not passed"
-          # fi
+          if [[ `flutter drive --target=test_driver/app.dart` ]]; then
+            echo "Test passed"
+          else
+            echo "Test not passed"
+          fi
           docker logs ${CONTIANER_ID}
