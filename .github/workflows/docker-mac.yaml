@@ -83,5 +83,3 @@ jobs:
           #   echo "Test not passed"
           # fi
           docker logs ${CONTIANER_ID}
-      run: |
-          echo "Testing"
