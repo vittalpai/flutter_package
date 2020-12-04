@@ -36,7 +36,7 @@ jobs:
 
           brew cask install docker-toolbox
           docker-machine create --driver "virtualbox" TestApp
-          docker-machine env TestApp
+          eval $(docker-machine env TestApp)
           docker-machine ls
 
           docker pull ibmcom/ibm-mobilefoundation-ce:latest
