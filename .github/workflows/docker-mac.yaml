@@ -4,10 +4,22 @@ on:
     branches:
     - master
 jobs:
-  build:
+  integration-tests:
+    name: Integration Test
     runs-on: macos-latest
+    strategy:
+      matrix:
+        device:
+          - "pixel"
+          - "pixel_xl"
+          - "pixel_c"
+          - "Nexus 6"
+      fail-fast: false
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
+    - uses: actions/setup-java@v1
+      with:
+          java-version: '8.x'
     - uses: subosito/flutter-action@v1
       with:
         flutter-version: '1.22.4'
@@ -15,51 +27,61 @@ jobs:
     - name : XCode
       run: |
         xcode-select -v
-        xcrun simctl list
-        open -a /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
-    - name: Install Docker
+        # open -a /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
+    - name: Run Tests
+      timeout-minutes: 30
       working-directory: ./Demo
+      uses: reactivecircus/android-emulator-runner@v2.6.0
+      with:
+        api-level: 28
+        profile: ${{ matrix.device }}
+        script: |
+          /Users/runner/Library/Android/sdk/tools/bin/avdmanager list
+
+          sleep 30 
+
+          brew cask install docker-toolbox
+          docker-machine create --driver "virtualbox" TestApp
+          eval "$(docker-machine env TestApp)"
+          docker-machine ls
+
+          docker pull ibmcom/ibm-mobilefoundation-ce:latest
+
+          CONTIANER_ID=$(docker run -d -p 9080:9080 -p 9443:9443 -e MFPF_ANALYTICS_PROTOCOL=http -e ANALYTICS_SVC_NAME=localhost -e ANALYTICS_PORT=9080 -e MFPF_SERVER_PROTOCOL=http -e ADMIN_HOST=localhost -e MFPF_SERVER_PORT=9080 -e RUNTIME_SVC_NAME=localhost -e MFPF_ANALYTICS_RECVR_HOST=localhost ibmcom/ibm-mobilefoundation-ce)
+          docker ps
+          echo "CONTIANER_ID=${CONTIANER_ID}" >> $GITHUB_ENV
+          echo "Container ID: ${CONTIANER_ID}"
+
+          sleep 120
+
+          echo "Getting the logs"
+          docker logs ${CONTIANER_ID}
+
+          curl http://192.168.99.100:9080/mfp/api/az/v1/token
+
+
+          cat <<EOF > ./registerconfig.json
+          {
+            "applicationKey":{
+                "version":"1.0.0",
+                "clientPlatform":"ios",
+                "bundleId":"com.example.Demo"
+            },
+            "displayName":"RunnerDemo"
+          }
+          EOF
+          curl -X POST "http://192.168.99.100:9080/mfpadmin/management-apis/2.0/runtimes/mfp/applications?async=false&locale=en_US" -H "Content-Type: application/json" --user "admin:admin" -H "cache-control: no-cache" -d @./registerconfig.json -o output.json
+          cat ./output.json
+
+          sleep 20;
+
+          flutter drive --target=test_driver/app.dart
+
+          # if [[ `flutter drive --target=test_driver/app.dart` ]]; then
+          #   echo "Test passed"
+          # else
+          #   echo "Test not passed"
+          # fi
+          docker logs ${CONTIANER_ID}
       run: |
-        brew cask install docker-toolbox
-        docker-machine create --driver "virtualbox" TestApp
-        eval "$(docker-machine env TestApp)"
-        docker-machine ls
-
-        docker pull ibmcom/ibm-mobilefoundation-ce:latest
-
-        CONTIANER_ID=$(docker run -d -p 9080:9080 -p 9443:9443 -e MFPF_ANALYTICS_PROTOCOL=http -e ANALYTICS_SVC_NAME=localhost -e ANALYTICS_PORT=9080 -e MFPF_SERVER_PROTOCOL=http -e ADMIN_HOST=localhost -e MFPF_SERVER_PORT=9080 -e RUNTIME_SVC_NAME=localhost -e MFPF_ANALYTICS_RECVR_HOST=localhost ibmcom/ibm-mobilefoundation-ce)
-        docker ps
-        echo "CONTIANER_ID=${CONTIANER_ID}" >> $GITHUB_ENV
-        echo "Container ID: ${CONTIANER_ID}"
-
-        sleep 120
-
-        echo "Getting the logs"
-        docker logs ${CONTIANER_ID}
-
-        curl http://192.168.99.100:9080/mfp/api/az/v1/token
-
-
-        cat <<EOF > ./registerconfig.json
-        {
-          "applicationKey":{
-              "version":"1.0.0",
-              "clientPlatform":"ios",
-              "bundleId":"com.example.Demo"
-          },
-          "displayName":"RunnerDemo"
-        }
-        EOF
-        curl -X POST "http://192.168.99.100:9080/mfpadmin/management-apis/2.0/runtimes/mfp/applications?async=false&locale=en_US" -H "Content-Type: application/json" --user "admin:admin" -H "cache-control: no-cache" -d @./registerconfig.json -o output.json
-        cat ./output.json
-
-        sleep 20;
-
-        flutter drive --target=test_driver/app.dart
-
-        # if [[ `flutter drive --target=test_driver/app.dart` ]]; then
-        #   echo "Test passed"
-        # else
-        #   echo "Test not passed"
-        # fi
-        docker logs ${CONTIANER_ID}
+          echo "Testing"
