@@ -55,9 +55,6 @@ jobs:
         
         sleep 20;
 
-        if [[ `flutter drive --target=test_driver/app.dart` ]]; then
-          echo "Test passed"
-        else
-          echo "Test not passed"
-        fi
+        flutter drive --target=test_driver/app.dart
+        
         docker logs ${CONTIANER_ID}
