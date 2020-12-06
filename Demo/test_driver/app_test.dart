@@ -1,6 +1,8 @@
 // Imports the Flutter Driver API.
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
+import 'dart:async';
+
 
 void main() {
   group('Counter App', () {
@@ -33,8 +35,11 @@ void main() {
       // First, tap the button.
       await driver.tap(buttonFinder);
 
+      var timer = Timer(Duration(seconds: 1),  () async => expect(await driver.getText(counterTextFinder), "1"));
+
+      timer.cancel();
+
       // Then, verify the counter text is incremented by 1.
-      expect(await driver.getText(counterTextFinder), "1");
     });
   });
 }

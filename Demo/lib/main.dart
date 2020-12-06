@@ -28,27 +28,23 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    initPlatformState();
+    // initPlatformState();
   }
 
-  Future<void> initPlatformState() async {
+  // Future<void> initPlatformState() async {
+  //   var connectTest = new ConnectTest();
+  //     connectTest.obtainAccessToken().then((value) => setState(() {
+  //       print('Value ${value["value"]}');
+  //     })).catchError((e) => print("Error ${e}"));
+  // }
+
+
+  void _incrementCounter() async {
     var connectTest = new ConnectTest();
-      connectTest.obtainAccessToken().then((value) => setState(() {
-        print('Value ${value["value"]}');
-      })).catchError((e) => print("Error ${e}"));
-  }
-
-
-  void _incrementCounter() {
-
-    var connectTest = new ConnectTest();
-      connectTest.obtainAccessToken().then((value) => setState(() {
-        print(value);
-        print('Value ${value["value"]}');
-        setState(() {
-          _counter++;
-        });
-      }));
+    await connectTest.obtainAccessToken().then((value) => 
+    setState(() {
+      _counter++;
+    }));
   }
 
   @override
@@ -62,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'You have pushed the button this many times:',
+              'Token is : ',
             ),
             Text(
               '$_counter',
