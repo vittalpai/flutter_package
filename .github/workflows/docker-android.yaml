@@ -16,11 +16,6 @@ jobs:
       with:
         flutter-version: '1.22.4'
         channel: 'stable'
-    - name : XCode
-      run: |
-        xcode-select -v
-        xcrun simctl list
-        open -a /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
     - name: Install Docker
       working-directory: ./Demo
       run: |
