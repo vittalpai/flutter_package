@@ -58,8 +58,6 @@ jobs:
         cat ./output.json
         
         sleep 20;
-        
-        docker logs ${CONTIANER_ID}
    - name: Run Test on Android
         working-directory: ./Demo
         uses: reactivecircus/android-emulator-runner@v1
