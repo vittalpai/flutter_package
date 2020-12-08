@@ -57,11 +57,10 @@ jobs:
         curl -X POST "http://192.168.99.100:9080/mfpadmin/management-apis/2.0/runtimes/mfp/applications?async=false&locale=en_US" -H "Content-Type: application/json" --user "admin:admin" -H "cache-control: no-cache" -d @./registerconfig.json -o output.json
         cat ./output.json
     - name: Run Tests on Android
-      working-directory: ./Demo
       uses: reactivecircus/android-emulator-runner@v1
       with:
         api-level: ${{ matrix.api-level }}
         target: ${{ matrix.target }}
         arch: x86_64
         profile: Nexus 6
-        script: flutter drive --target=test_driver/app.dart
+        script: flutter drive --target=Demo/test_driver/app.dart
