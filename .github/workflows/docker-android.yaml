@@ -56,8 +56,7 @@ jobs:
         EOF
         curl -X POST "http://192.168.99.100:9080/mfpadmin/management-apis/2.0/runtimes/mfp/applications?async=false&locale=en_US" -H "Content-Type: application/json" --user "admin:admin" -H "cache-control: no-cache" -d @./registerconfig.json -o output.json
         cat ./output.json
-        
-        sleep 20;
+        sleep 20
    - name: Run Test on Android
         working-directory: ./Demo
         uses: reactivecircus/android-emulator-runner@v1
