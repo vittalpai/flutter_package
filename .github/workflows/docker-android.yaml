@@ -59,4 +59,6 @@ jobs:
         profile: Nexus 6
         script: |
             cd ./Demo
+            flutter pub get
             flutter drive --target=test_driver/app.dart
+            
