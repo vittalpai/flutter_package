@@ -8,7 +8,7 @@ jobs:
     runs-on: macos-latest
     defaults:
       run:
-        working-directory: Demo
+        working-directory: ./Demo
     strategy:
       matrix:
         api-level: [21, 29]
