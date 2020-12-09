@@ -6,9 +6,6 @@ on:
 jobs:
   build:
     runs-on: macos-latest
-    defaults:
-      run:
-        working-directory: ./Demo
     strategy:
       matrix:
         api-level: [21, 29]
@@ -54,10 +51,12 @@ jobs:
         curl -X POST "http://192.168.99.100:9080/mfpadmin/management-apis/2.0/runtimes/mfp/applications?async=false&locale=en_US" -H "Content-Type: application/json" --user "admin:admin" -H "cache-control: no-cache" -d @./registerconfig.json -o output.json
         cat ./output.json
     - name: Run Tests on Android
-      uses: reactivecircus/android-emulator-runner@v1
+      uses: reactivecircus/android-emulator-runner@v2
       with:
         api-level: ${{ matrix.api-level }}
         target: ${{ matrix.target }}
         arch: x86_64
         profile: Nexus 6
-        script: flutter drive --target=test_driver/app.dart
+        script: |
+            cd ./Demo
+            flutter drive --target=test_driver/app.dart
