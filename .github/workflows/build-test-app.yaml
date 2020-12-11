@@ -1,4 +1,4 @@
-name: Build & Test App
+name: Build and Test App
 on:
   push:
     branches:
@@ -10,8 +10,8 @@ on:
       branches:
       - master
 jobs:
-  build-&-test:
-    name: Build & Test
+  build-and-test:
+    name: Build and Test
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v1
