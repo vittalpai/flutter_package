@@ -58,10 +58,6 @@ jobs:
 
   android:
     runs-on: macos-latest
-    strategy:
-      matrix:
-        api-level: [21, 29]
-        target: [default]
     steps:
     - uses: actions/checkout@v1
     - uses: subosito/flutter-action@v1
@@ -105,8 +101,8 @@ jobs:
     - name: Run Tests on Android Emulator
       uses: reactivecircus/android-emulator-runner@v2
       with:
-        api-level: ${{ matrix.api-level }}
-        target: ${{ matrix.target }}
+        api-level: 29
+        target: default
         arch: x86_64
         profile: Nexus 6
         script: cd ./Demo && flutter pub get && flutter doctor -v && flutter drive --target=test_driver/app.dart
